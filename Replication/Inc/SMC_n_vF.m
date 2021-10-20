@@ -1,4 +1,4 @@
-% StEM estimation using SMC methods to estimate the model in Arellano, Blundell and Bonhomme (2017)
+% StEM estimation using SMC methods to estimate the model in ABBL (2021)
 % This version: September 2021
 % Questions: jdlight@uchicago.edu
   
