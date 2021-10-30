@@ -2,6 +2,8 @@
 
 Replication codes for: "Heterogeneity of Consumption Responses to Income Shocks in the Presence of Nonlinear Persistence", by Arellano, Blundell, Bonhomme, Light
 
+If you have any questions please e-mail: jdlight@uchicago.edu
+
 # Overview
 
 There are three sets of replication codes:
