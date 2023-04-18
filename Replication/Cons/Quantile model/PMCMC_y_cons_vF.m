@@ -1,9 +1,9 @@
-% ABBL (2021)
+% ABBL (2023)
 % Code for model with heterogeneity and not filtering
 
 clear all
 clc;
-cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Consumption/'
+cd '/home/jdlight/ABBL_PMCMC/JOE_codes/SMC/Consumption/'
 
 global T N K1 K2 K3 K4 K5 Ntau Vectau tau AGE1 Y1 A1...
     D D_t Y AGE meanAGE stdAGE meanY stdY ENT EXT...
@@ -431,4 +431,4 @@ bL_a1=mean(mat_b((maxiter/2):maxiter,8))
 
 
 
-save 211015_pmcmc_y.mat
+% save REVISION_Y.mat

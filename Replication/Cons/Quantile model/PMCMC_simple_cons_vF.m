@@ -1,10 +1,10 @@
-% ABBL (2021)
+% ABBL (2023)
 % Code to estimate the baseline non-linear consumption model
 % NB: assets modelled as function of lagged income only in this baseline
 
 clear all
 clc;
-cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Cons/Quantile Model/'
+cd '/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/'
 
 
 global T N K1 K2 K3 K4 K5 Ntau Vectau tau AGE1 Y1 A1...
@@ -19,6 +19,7 @@ global T N K1 K2 K3 K4 K5 Ntau Vectau tau AGE1 Y1 A1...
     uc Vect_AGE_tot Vect_A_tot Vect_AGE_t Vect_A_lag Vect_Matdraw_lag Vect_Y_lag Vect_C_lag ua ua1 Vect_AGE1 Vect_Matdraw1 unit_interval...
     EDUC YB meanEDUC meanYB stdEDUC stdYB Ybar  meanYbar stdYbar M12a M12b M17   Vect_YB Vect_ED
 
+
 %%
 % 1. Parameters 
 %%%%%%%%%%%%
@@ -30,7 +31,7 @@ tol_dnom=2; % Resampling tolerance
 draws=50; % Length of chains in MH step
 sigma=1; % s.d. for the standard normals used in initial conditions
 MH_scale=3.5; % Random walk proposal variance as multiple of std(xi) (i.e. proposal variance = MH_scale*sigma_xi)
-maxiter=2000; % Total StEM iterations
+maxiter=150; % Total StEM iterations
 
 % Order of hermite polynomials (others will be loaded from income results)
 M1=2;
@@ -59,10 +60,16 @@ M17=1;
 %%%%%%%%%%%%
 
 % Load earnings parameters
-load ('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/211015_smc_n.mat')
+load ('/home/jdlight/ABBL_PMCMC/JOE_codes/Results/211015_smc_n.mat')
+
+data(:,9) =data(:,11);
+
+% load('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Inc/Results/REVISION_n_NO_DUAL_RESTRICTION.mat')
+% load ('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Inc/Results/REVISION_n_5_knots.mat')
 
 % Load the consumption data
 load_cons_data(data);
+load('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_cons_smc_l.mat','Matdraw_tot','Matdraw','Matdraw_lag','Matdraw1')
 
 %%%% EXAMPLE %%%%
 % This is just a useful example for two ways of calculating tensor products
@@ -101,16 +108,16 @@ Resqnew_a1=zeros((M13+1)*(M14+1)*(M15+1)*(M16+1)*(M17+1),Ntau,maxiter);
 
 % If toggled randomly perturb the initial draws
 if peturb_init==1
-Resqinit_cons=Resqinit_cons+.1*randn(size(Resqinit_cons));
-Resqinit_a=Resqinit_a+.1*randn(size(Resqinit_a));
-Resqinit_a1=Resqinit_a1+.1*randn(size(Resqinit_a1));
-Resqinit_xi=Resqinit_xi+.1*randn(size(Resqinit_xi));
-b1=b1*2*rand(1);
-bL=bL*2*rand(1);
-b1_e0=b1_e0*2*rand(1);
-bL_e0=bL_e0*2*rand(1);
-b1_eps=b1_eps*2*rand(1);
-bL_eps=bL_eps*2*rand(1);
+    Resqinit_cons=Resqinit_cons+.1*randn(size(Resqinit_cons));
+    Resqinit_a=Resqinit_a+.1*randn(size(Resqinit_a));
+    Resqinit_a1=Resqinit_a1+.1*randn(size(Resqinit_a1));
+    Resqinit_xi=Resqinit_xi+.1*randn(size(Resqinit_xi));
+    b1=b1*2*rand(1);
+    bL=bL*2*rand(1);
+    b1_e0=b1_e0*2*rand(1);
+    bL_e0=bL_e0*2*rand(1);
+    b1_eps=b1_eps*2*rand(1);
+    bL_eps=bL_eps*2*rand(1);
 end
 
 % Initialize objects needed for StEM
@@ -175,7 +182,7 @@ for iter=1:maxiter
                 i_MatXlag=[i_MatXlag hermite(kk12,(EDUC(iii)-meanEDUC)/stdEDUC)...
                     .*hermite(kk13,(YB(iii)-meanYB)/stdYB)...
                     .*hermite(kk14,(Ybar(iii) -meanYbar)/stdYbar)];
-                end;
+                end
             end
         end
         
@@ -454,7 +461,7 @@ for iter=1:maxiter
     for iii=1:N
         Matdraw1(iii)=Matdraw(iii,ENT(iii));
     end
-    Vect_Matdraw1=arrayfun(@(x) hermite(x,(Y1-meanY)/stdY),ua1(:,1),'Uniform',0);
+    Vect_Matdraw1=arrayfun(@(x) hermite(x,(Matdraw1-meanY)/stdY),ua1(:,1),'Uniform',0);
     Vect_Xi1=arrayfun(@(x) hermite(x,(Matdraw(:,T+1)-meanC)/stdC),ua1(:,3),'Uniform',0);
     MatA =cat(2,Vect_Matdraw1{:}).*cat(2,Vect_AGE1{:}).*cat(2,Vect_Xi1{:}).*cat(2,Vect_YB{:}).*cat(2,Vect_ED{:});
 
@@ -560,4 +567,4 @@ bL_a=mean(mat_b((maxiter/2):maxiter,6))
 b1_a1=mean(mat_b((maxiter/2):maxiter,7))
 bL_a1=mean(mat_b((maxiter/2):maxiter,8))
 
-save 211015_pmcmc_n.mat
+% save '/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_FINAL_C.mat'

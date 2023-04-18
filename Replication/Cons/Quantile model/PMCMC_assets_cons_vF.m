@@ -1,10 +1,9 @@
-% ABBL (2021)
-% Code to estimate the baseline non-linear consumption model
-% NB: assets modelled as function of lagged income only in this baseline
+% ABBL (2023)
+% Code to estimate the non-linear consumption model with assets
 
 clear all
 clc;
-cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Cons/Quantile Model/'
+cd '/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/'
 
 
 global T N K1 K2 K3 K4 K5 Ntau Vectau tau AGE1 Y1 A1...
@@ -52,12 +51,14 @@ sigma=1; % S.d. used in initial conditions
 MH_scale=3.5; % Random walk proposal variance is MH_scale*sigma_xi
 unit_interval=0;
 % Load earnings parameters
-load ('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/211015_smc_n.mat')
+load ('/home/jdlight/ABBL_PMCMC/JOE_codes/Results/211015_smc_n.mat')
 
-maxiter=2000;
+maxiter=200;
 
 % Load the consumption data
 load_cons_data(data);
+load('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_cons_smc_n.mat','Matdraw_tot','Matdraw','Matdraw_lag','Matdraw1')
+
 [Resqinit_cons,Resqinit_a,Resqinit_xi,Resqinit_a1,OLSnew_cons,OLSnew_a,OLSnew_xi,OLSnew_a1,vcons,va,vxi,va1,b1_c,bL_c,b1_a,bL_a,b1_a1,bL_a1,b1_xi,bL_xi]=init_cons_pmcmc_main();
 Resqinit= Resqfinal;
 Resqinit_e0 = Resqfinal_e0;
@@ -431,7 +432,7 @@ for iter=1:maxiter
         Matdraw1(iii)=Matdraw(iii,ENT(iii));
     end
     
-    Vect_Matdraw1=arrayfun(@(x) hermite(x,(Y1-meanY)/stdY),ua1(:,1),'Uniform',0);
+    Vect_Matdraw1=arrayfun(@(x) hermite(x,(Matdraw1-meanY)/stdY),ua1(:,1),'Uniform',0);
     Vect_Xi1=arrayfun(@(x) hermite(x,(Matdraw(:,T+1)-meanC)/stdC),ua1(:,3),'Uniform',0);
     
     MatA =cat(2,Vect_Matdraw1{:}).*cat(2,Vect_AGE1{:}).*cat(2,Vect_Xi1{:}).*cat(2,Vect_YB{:}).*cat(2,Vect_ED{:});
@@ -450,11 +451,6 @@ for iter=1:maxiter
     beta=pinv(MatXi)*Matdraw(:,T+1);
     vxi=var(Matdraw(:,T+1)-MatXi*beta)
     
-%     Resqnew_cons(17,:,iter)=Resqnew_cons(17,:,iter)-mean(Resqnew_cons(17,:,iter)')'*ones(1,Ntau) + stdC;
-%     Resqnew_cons(1,:,iter)=Resqnew_cons(1,:,iter)-mean(Resqnew_cons(1,:,iter)')'*ones(1,Ntau) + meanC;
-%     Resqnew_cons(1,:,iter)=Resqnew_cons(1,:,iter)-((1-Vectau(Ntau))/bL_c-Vectau(1)/b1_c)*ones(1,Ntau);
-%     
-%     
     % Taste heterogeneity: Laplace parameters
     
     Vect1=C_tot-MatClag*Resqnew_cons(:,1,iter);
@@ -537,7 +533,4 @@ bL_a=mean(mat_b((maxiter/2):maxiter,6))
 b1_a1=mean(mat_b((maxiter/2):maxiter,7))
 bL_a1=mean(mat_b((maxiter/2):maxiter,8))
 
-% OLSnew_xi=mean(OLSstore_xi(:,(maxiter/2):maxiter),2);
-%vxi=mean(var_store(1,(maxiter/2):maxiter),2);
-
-save 211015_pmcmc_n_assets_2.mat
+% save '/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_ASSETS_FINAL.mat'

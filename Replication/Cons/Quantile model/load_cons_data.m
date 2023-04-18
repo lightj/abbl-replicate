@@ -97,8 +97,8 @@ for iii=1:N
     Ybar(iii)=mean(Y(iii,ENT(iii):EXT(iii)));
 end
 
-bols = pinv([ones(N,1) AGE1 AGE1.^2])*Ybar;
-Ybar =Ybar - ( [ones(N,1) AGE1 AGE1.^2]*bols);
+%bols = pinv([ones(N,1) AGE1 AGE1.^2])*Ybar;
+%Ybar =Ybar - ( [ones(N,1) AGE1 AGE1.^2]*bols);
 
 meanYbar =mean(Ybar);
 stdYbar=std(Ybar);
