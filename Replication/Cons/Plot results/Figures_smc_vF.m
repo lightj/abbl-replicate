@@ -1,7 +1,7 @@
-% ABBL (2021)
+% ABBL (2023)
 % Code to generate the figures for the baseline model without heterogeneity
 
-cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Consumption/'
+cd '/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/'
 
 clear all
 clc;
@@ -20,18 +20,9 @@ model = 1;
 % 1. Load results and extra data for plotting
 %%%%%%%%%%%%
 
-load('211015_smc_n.mat');
-
-view
-figs(1)=figure;
-plot(mat_lik)
-xlim([0, maxiter])
-ylabel('Likelihood','FontSize',9)
-xlabel('Iteration','FontSize',9)
-print(figs(1),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/abb_lik_%d.eps',model),'-depsc');
+% load('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_cons_smc_l.mat');
 
 % Load the consumption data
-
 Resqfinal_cons=zeros(size(Resqinit_cons));
 for jtau=1:Ntau
     for p=1:size(Resqfinal_cons,1)
@@ -94,7 +85,6 @@ Resqinit_a1=Resqfinal_a1;
 %%%%%%%%%%%%
 
 Matdraw_final=zeros(N,T);
-acceptrate=zeros(N,draws);
 lik_iter=zeros(N,1);
 ESS_iter=zeros(N,T);
 
@@ -165,9 +155,11 @@ parfor iii=1:N
             i_Vect_Eps_tot=arrayfun(@(x) hermite(x,(i_Y(:,ttt)-particle_draw(:,ttt)-meanY)/stdY),uc(:,3),'Uniform',0);
             i_MatC = cat(2,i_Vect_A_tot{:}).*cat(2,i_Vect_Matdraw_tot{:}).*cat(2,i_Vect_Eps_tot{:}).*cat(2,i_Vect_AGE_tot{:});
             
-            i_Vect_AGE1=arrayfun(@(x) hermite(x,(i_AGE(:,ttt)-meanAGE)/stdAGE),ua1(:,2),'Uniform',0);
             i_Vect_Matdraw1=arrayfun(@(x) hermite(x,(particle_draw(:,ttt)-meanY)/stdY),ua1(:,1),'Uniform',0);
-            i_MatA =cat(2,i_Vect_Matdraw1{:}).*cat(2,i_Vect_AGE1{:});
+            i_Vect_AGE1=arrayfun(@(x) hermite(x,(i_AGE(:,ttt)-meanAGE)/stdAGE),ua1(:,2),'Uniform',0);
+            i_Vect_YB=arrayfun(@(x) hermite(x,(YB(iii)-meanYB)/stdYB),ua1(:,3),'Uniform',0);
+            i_Vect_ED=arrayfun(@(x) hermite(x,(EDUC(iii)-meanEDUC)/stdEDUC),ua1(:,4),'Uniform',0);
+            i_MatA =cat(2,i_Vect_Matdraw1{:}).*cat(2,i_Vect_AGE1{:}).*cat(2,i_Vect_YB{:}).*cat(2,i_Vect_ED{:});
             
             
             weights=IS_weight_c_a(i_Y,i_C,particle_draw,i_MatAGE_tot,i_MatAGE1,ttt,...
@@ -276,7 +268,7 @@ Ytilde=Y;
 % 3. Main figures
 %%%%%%%%%%%%
 
-%%% FIGURE 5c - Average Insurance
+%%% FIGURE 4c - Average Insurance
 
 sample=find(D(:));
 Vec1=quantile(Mata_true(sample),Vectau);

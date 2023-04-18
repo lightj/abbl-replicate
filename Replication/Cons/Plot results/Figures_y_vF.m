@@ -1,6 +1,5 @@
-% ABBL (2021)
-% Code to generate the figures for the model with heterogeneity but no
-% filtering
+% ABBL (2023)
+% Code to generate the figures for the model with heterogeneity but no filtering
 
 cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Consumption/'
 
@@ -23,14 +22,7 @@ model = 1;
 % 1. Load results and extra data for plotting
 %%%%%%%%%%%
 
-load('211015_pmcmc_y.mat');
-
-figs(1)=figure;
-plot(mat_lik)
-xlim([0, maxiter])
-ylabel('Likelihood','FontSize',9)
-xlabel('Iteration','FontSize',9)
-print(figs(1),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Consumption/abb_lik_%d.eps',model),'-depsc');
+% load('211015_pmcmc_y.mat');
 
 Resqtrue=Resqfinal;
 Resqtrue_e0=Resqfinal_e0;

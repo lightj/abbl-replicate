@@ -2,7 +2,7 @@
 % Code to generate the figures for the baseline model
 % NB: assets modelled as function of lagged income only in this baseline
 
-cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Consumption/'
+cd '/home/jdlight/ABBL_PMCMC/JOE_codes/SMC/Consumption/'
 
 clear all
 clc;
@@ -15,13 +15,13 @@ global Vect Vect_dep xx bdw tau T N K1 K2 K3 K4 Ntau Vectau tau ...
     AGE_tot EDUC YB K5 K6 Ybar meanYbar stdYbar
 
 % variable for dynamic saving of files
-model = 1;
+model = 11;
 
 %%
 % 1. Load results and extra data for plotting
 %%%%%%%%%%%%
 
-load ('/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Cons/Quantile Model/Results/211015_pmcmc_n.mat');
+load('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_FINAL.mat')
 
 % Check marginal likelihood
 figs(1)=figure;
@@ -29,7 +29,6 @@ plot(mat_lik)
 xlim([0, maxiter])
 ylabel('Likelihood','FontSize',9)
 xlabel('Iteration','FontSize',9)
-print(figs(1),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/abb_lik_%d.eps',model),'-depsc');
 
 % Parent assets + asset residuals
 PA=data(:,25);
@@ -624,7 +623,7 @@ for jtau1=1:Ntau
 end
 end
 
-% Figure A1a
+% Figure A3a
 figs(4)=figure;
 Mat1 = quantile(Mat_insurance2,0.1,3);
 Mat2 = quantile(Mat_insurance2,0.9,3);
@@ -643,7 +642,7 @@ set(gca,'ztick',(0:0.25:1))
 view([140 15]);
 print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/motivate_boot_q2.eps'),'-depsc');
 
-% Figure A1b
+% Figure A3b
 figs(4)=figure;
 Mat1 = quantile(Mat_insurance1,0.1,3);
 Mat2 = quantile(Mat_insurance1,0.9,3);
@@ -662,7 +661,7 @@ set(gca,'ztick',(0:0.25:1))
 view([140 15]);
 print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/motivate_boot_q1.eps'),'-depsc');
 
-% Figure A1c
+% Figure A3c
 figs(4)=figure;
 Mat1 = quantile(Mat_insurance3,0.1,3);
 Mat2 = quantile(Mat_insurance3,0.9,3);
@@ -685,7 +684,7 @@ print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/motivat
 % 4. Main figures 
 %%%%%%%%%%%%
 
-%%% FIGURE 5a - Main Insurance Y
+%%% FIGURE 4a - Main Insurance Y
 XX=[];
 for kk1=0:M1
     for kk2=0:M2
@@ -746,21 +745,22 @@ caxis([0 1])
 view([140 15]);
 print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/abb_cy_single_%d.eps',model),'-depsc');
 
-%%% FIGURE 5d - Average Insurance
+%%% FIGURE 4d - Average Insurance
 
 sample=find(D(:));
-Vec1=quantile(Mata_true(sample),Vectau);
+Vec1=quantile(A_tot(:),Vectau);
 Vec2=quantile(AGE_tot(:),Vectau);
 
 Mat_insurance=zeros(Ntau,Ntau);
 
-Matxi_tot= Matxi_true;
+Matxi_tot= Matdraw(:,T+1);
 for tt=2:T
-    Matxi_tot=[Matxi_tot; Matxi_true];
+    Matxi_tot=[Matxi_tot; Matdraw(:,T+1)];
 end
 sample=find(D);
-Mateta_tot =Mateta_true(sample);
-Mateps_tot=Mateps_true(sample);
+Mateta_tot = Matdraw(:,1:T);
+Mateta_tot =Mateta_tot(sample);
+Mateps_tot = Y_tot - Mateta_tot;
 Matxi_tot=Matxi_tot(sample);
 for jtau1=1:Ntau
     for jtau2=1:Ntau
@@ -790,13 +790,14 @@ text(0.8,0.01, 0.85, ['\mu = ' num2str(mean(Mat_insurance(:)),2)])
 text(0.8,0.01, 0.75, ['\sigma = ' num2str(std(Mat_insurance(:)),1)])
 caxis([0 1])
 view([140 15]);
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/abb_c_single_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/abb_c_single_%d.eps',model),'-depsc');
+
 
 %%
 % 5. Main heterogeneity results
 %%%%%%%%%%%%
 
-%%% FIGURE 6 - consumption response by types
+%%% FIGURE 5 - consumption response by types
 
 Ntau_plot=5;
 quant_plot_grid = [0.1 0.25 0.5 0.75 0.9];
@@ -837,11 +838,54 @@ text(0.8,0.01, 0.85, ['\mu = ' num2str(mean(Mat_insurance(:)),2)])
 text(0.8,0.01, 0.75, ['\sigma = ' num2str(std(Mat_insurance(:)),1)])
 caxis([0 1])
 view([140 15]);
-print(figs(it),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/abb_eta_xi_%d_tau%d.eps',model,it),'-depsc');
+print(figs(it),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/abb_eta_xi_%d_tau%d.eps',model,it),'-depsc');
+end
+
+%%% FIGURE A19 - robustness to knots
+
+close all
+quant_plot_grid = [0.1 0.25 0.5 0.75 0.9];
+% pars = load('/home/jdlight/ABBL_PMCMC/JOE_codes/Knot_robustness/Cons/Results/inc_estspec_robust_5.mat')
+
+Vec1=quantile(A_tot(:),Vectau);
+Vec2=quantile(AGE_tot(:),Vectau);
+
+for it = 1:5
+tau_use = quant_plot_grid(it);
+Matxi_use = quantile(Matxi_true,tau_use);
+Mat_insurance=zeros(Ntau,Ntau);
+for jtau1=1:Ntau
+    for jtau2=1:Ntau 
+        Vect_AGE_tot=arrayfun(@(x) hermite(x,(Vec2(jtau2)-meanAGE)/stdAGE),uc(:,4),'Uniform',0);
+        Vect_A_tot=arrayfun(@(x) hermite(x,(Vec1(jtau1)-meanA)/stdA),uc(:,1),'Uniform',0);
+        Vect_Matdraw_tot=arrayfun(@(x) x*hermite(x-1,(Mateta_tot-meanY)/stdY)./stdY,uc(:,2),'Uniform',0);
+        Vect_Eps_tot=arrayfun(@(x) hermite(x,(Mateps_tot-meanY)/stdY),uc(:,3),'Uniform',0);
+        Vect_Xi_tot=arrayfun(@(x) hermite(x,(Matxi_use-meanC)/stdC),uc(:,5),'Uniform',0);
+        XX1 = cat(2,Vect_A_tot{:}).*cat(2,Vect_Matdraw_tot{:}).*cat(2,Vect_Eps_tot{:}).*cat(2,Vect_AGE_tot{:}).*cat(2,Vect_Xi_tot{:});       
+        Mat_insurance(jtau1,jtau2)=mean(mean(XX1*pars.Resqfinal_cons));
+    end
+end
+figs(it)=figure;
+set(figs(it), 'Position', [10 10 500 400]);
+surf(Vectau,Vectau,Mat_insurance)
+xlabel('Age','FontSize',8)
+ylabel('Assets','FontSize',8)
+zlabel('Consumption response','FontSize',8)
+set(gca,'xlim',[0 1])
+set(gca,'ylim',[0 1])
+set(gca,'zlim',[0 1])
+set(gca,'xtick',(0:0.2:1))
+set(gca,'ytick',(0:0.2:1))
+set(gca,'ztick',(0:0.2:1))
+text(0.8,0.01, 0.85, ['\mu = ' num2str(mean(Mat_insurance(:)),2)])
+text(0.8,0.01, 0.75, ['\sigma = ' num2str(std(Mat_insurance(:)),1)])
+caxis([0 1])
+view([140 15]);
+print(figs(it),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/abb_eta_xi_19_knots_tau%d.eps',it),'-depsc');
 end
 
 %%
-% 5. Lifecycle results
+% 6. Lifecycle results
 %%%%%%%%%%%%
 
 %%% CONSUMPTION PROFILES
@@ -897,6 +941,7 @@ end
 fitted1 = XX*beta1;
 fitted9 = XX*beta9;
 
+%%% Figure 6a
 figs(40)=figure;
 set(figs(40), 'Position', [10 10 800 300]);
 plot(25:1:60,profile)
@@ -905,7 +950,7 @@ ylabel('Fitted value of consumption','FontSize',8)
 hold on
 plot(25:1:60,[fitted1 fitted9],'--','Color','black');
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(40),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/chat_xi_profile_%d.eps',model),'-depsc');
+print(figs(40),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/chat_xi_profile_%d.eps',model),'-depsc');
 
 % ASSET PROFILES
 
@@ -961,6 +1006,7 @@ end
 fitted1 = XX*beta1;
 fitted9 = XX*beta9;
 
+%%% Figure 6b
 figs(40)=figure;
 set(figs(40), 'Position', [10 10 800 300]);
 plot(25:1:60,profile)
@@ -969,7 +1015,7 @@ ylabel('Fitted value of assets','FontSize',8)
 hold on
 plot(25:1:60,[fitted1 fitted9],'--','Color','black');
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(40),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/ahat_xi_profile_%d.eps',model),'-depsc');
+print(figs(40),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/ahat_xi_profile_%d.eps',model),'-depsc');
 
 % ETA PROFILES
 
@@ -1025,6 +1071,7 @@ end
 fitted1 = XX*beta1;
 fitted9 = XX*beta9;
 
+%%% Figure 6c
 figs(40)=figure;
 set(figs(40), 'Position', [10 10 800 300]);
 plot(25:1:60,profile)
@@ -1033,7 +1080,7 @@ ylabel('Fitted value of \eta','FontSize',8)
 hold on
 plot(25:1:60,[fitted1 fitted9],'--','Color','black');
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(40),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/nhat_xi_profile_%d.eps',model),'-depsc');
+print(figs(40),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/nhat_xi_profile_%d.eps',model),'-depsc');
 
 %%% FIGURE A3
 
@@ -1064,7 +1111,7 @@ beta9=rq(XX,c_tot,0.9);
 
 age_list = 25:1:60;
 
-% ANOVA (just using LOTV)
+% FIGURE A12
 var_of_c = var(c_tot)
 XX=[];
 for kk1=0:3
@@ -1093,6 +1140,7 @@ profile_p1(:,it) = XX*beta1;
 profile_p3(:,it) = XX*beta9;
 end
 
+% figure A12
 figs(40)=figure;
 set(figs(40), 'Position', [10 10 800 300]);
 subplot(1,3,1)
@@ -1119,10 +1167,9 @@ plot(25:1:60,profile_p3(:,3),'--','Color','green')
 ylim([9 12])
 xlabel('Age','FontSize',8)
 ylabel('Fitted value of consumption','FontSize',8)
-print(figs(40),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/chat_xi_profile_%d.eps',model),'-depsc');
+print(figs(40),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/chat_xi_profilec_%d.eps',model),'-depsc');
 
-%%% FIGURE A4a
-
+%%% FIGURE A13
 Ntau_plot=3;
 quant_plot_grid = [0.1 0.5 0.9];
 
@@ -1170,6 +1217,7 @@ profile_p1(:,it) = XX*beta1;
 profile_p3(:,it) = XX*beta9;
 end
 
+% figure A13a
 figs(40)=figure;
 set(figs(40), 'Position', [10 10 800 300]);
 hold on
@@ -1185,9 +1233,9 @@ plot(25:1:60,profile_p3(:,1),'--','Color','red')
 plot(25:1:60,profile_p3(:,2),'--','Color','blue')
 plot(25:1:60,profile_p3(:,3),'--','Color','green')
 legend('\tau_{10}','\tau_{50}','\tau_{90}','Location','northeastoutside')
-print(figs(40),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/ahat_xi_profile_%d.eps',model),'-depsc');
+print(figs(40),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/ahat_xi_profileb_%d.eps',model),'-depsc');
 
-%%% FIGURE A4b
+%%% FIGURE A13b
 
 Ntau_plot=3;
 quant_plot_grid = [0.1 0.5 0.9];
@@ -1236,6 +1284,7 @@ profile_p1(:,it) = XX*beta1;
 profile_p3(:,it) = XX*beta9;
 end
 
+% figure A13b
 figs(40)=figure;
 set(figs(40), 'Position', [10 10 800 300]);
 hold on
@@ -1251,9 +1300,69 @@ plot(25:1:60,profile_p3(:,1),'--','Color','red')
 plot(25:1:60,profile_p3(:,2),'--','Color','blue')
 plot(25:1:60,profile_p3(:,3),'--','Color','green')
 legend('\tau_{10}','\tau_{50}','\tau_{90}','Location','northeastoutside')
-print(figs(40),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/nhat_xi_profile_%d.eps',model),'-depsc');
+print(figs(40),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/nhat_xi_profileb_%d.eps',model),'-depsc');
 
-%%% FIGURE A11 - QQ plots by type
+%%
+% 7. Other Results and Robustness
+%%%%%%%%%%%%
+
+%%% FIGURE A11 - stdandard deviation of consumption residuals by types
+Ntau_plot=5;
+quant_plot_grid = [0.1 0.25 0.5 0.75 0.9];
+
+sample=find(D(:));
+Mateta_tot =Mateta_true(sample);
+Mateps_tot=Mateps_true(sample);
+Vec1=quantile(Mata_true(sample),Vectau);
+Vec2=quantile(AGE_tot(:),Vectau);
+for it = 1:5
+tau_use = quant_plot_grid(it);
+Matxi_use = quantile(Matxi_true,tau_use);
+Mat_insurance=zeros(Ntau,Ntau);
+Mat_R2=zeros(Ntau,Ntau);
+
+for jtau1=1:Ntau
+    for jtau2=1:Ntau  
+        Vect_AGE_tot=arrayfun(@(x) hermite(x,(Vec2(jtau2)-meanAGE)/stdAGE),uc(:,4),'Uniform',0);
+        Vect_A_tot=arrayfun(@(x) hermite(x,(Vec1(jtau1)-meanA)/stdA),uc(:,1),'Uniform',0);
+        Vect_Matdraw_tot=arrayfun(@(x) x*hermite(x-1,(Mateta_tot-meanY)/stdY)./stdY,uc(:,2),'Uniform',0);
+        Vect_Eps_tot=arrayfun(@(x) hermite(x,(Mateps_tot-meanY)/stdY),uc(:,3),'Uniform',0);
+        Vect_Xi_tot=arrayfun(@(x) hermite(x,(Matxi_use-meanC)/stdC),uc(:,5),'Uniform',0);
+        XX1 = cat(2,Vect_A_tot{:}).*cat(2,Vect_Matdraw_tot{:}).*cat(2,Vect_Eps_tot{:}).*cat(2,Vect_AGE_tot{:}).*cat(2,Vect_Xi_tot{:});       
+        Insurance_tot = XX1*Resqfinal_cons;
+        Insurance_tot_mean = mean(Insurance_tot,2);
+
+        res = Insurance_tot - Insurance_tot_mean;
+        
+        Mat_insurance(jtau1,jtau2)=std(res(:));
+        Mat_R2(jtau1,jtau2) = 1 - var(res(:))/var(Insurance_tot(:));
+    end
+end
+
+
+% figure A11
+figs(it)=figure;
+set(figs(it), 'Position', [10 10 500 400]);
+surf(Vectau,Vectau,Mat_R2)
+xlabel('Age','FontSize',8)
+ylabel('Assets','FontSize',8)
+zlabel('R2 of consumption response explained by covariates','FontSize',8)
+set(gca,'xlim',[0 1])
+set(gca,'ylim',[0 1])
+set(gca,'zlim',[0 1])
+set(gca,'xtick',(0:0.2:1))
+set(gca,'ytick',(0:0.2:1))
+set(gca,'ztick',(0:0.2:1))
+text(0.8,0.01, 0.25, ['\mu = ' num2str(mean(Mat_R2(:)),2)])
+text(0.8,0.01, 0.15, ['\sigma = ' num2str(std(Mat_R2(:)),1)])
+caxis([0 1])
+view([140 15]);
+print(figs(it),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/r2_eta_xi_%d_tau%d.eps',model,it),'-depsc');
+end
+
+
+
+%%% FIGURE A25 - QQ plots by type
 
 % Education
 figs(13) = figure;
@@ -1267,7 +1376,7 @@ xlim([-1 1])
 ylim([-1 1])
 xlabel('Non-graduates')
 ylabel('Graduates')
-print(figs(13),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/qq_xi_%d.eps',model),'-depsc');
+print(figs(13),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/qq_educ_xi_%d.eps',model),'-depsc');
 
 % Cohort 
 figs(13) = figure;
@@ -1281,9 +1390,12 @@ xlim([-1 1])
 ylim([-1 1])
 xlabel('Older cohorts')
 ylabel('Younger cohorts')
-print(figs(13),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/qq_coh_xi_%d.eps',model),'-depsc');
+print(figs(13),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/qq_coh_xi_%d.eps',model),'-depsc');
 
-%%% FIGURE A12
+
+
+
+%%% FIGURE A26
 
 sample=find(D(:));
 Vec1=quantile(Mata_true(sample),Vectau);
@@ -1387,6 +1499,8 @@ for jtau1=1:Ntau
         Mat_insurance(jtau1,jtau2)=mean(mean(XX*Resqinit_cons_educ));
     end
 end
+
+% figures by type
 figs(it)=figure;
 set(figs(it), 'Position', [10 10 500 400]);
 surf(Vectau,Vectau,Mat_insurance)
@@ -1403,16 +1517,86 @@ text(0.8,0.01, 0.85, ['\mu = ' num2str(mean(Mat_insurance(:)),2)])
 text(0.8,0.01, 0.75, ['\sigma = ' num2str(std(Mat_insurance(:)),1)])
 caxis([0 1])
 view([140 15]);
-print(figs(it),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/abb_eta_xi_%d_tau%d.eps',model,it),'-depsc');
+print(figs(it),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/abb_eta_xi_educ_%d_tau%d.eps',model,it),'-depsc');
 
 end
 
+% FIGURE A26d
+
+sample=find(D(:));
+Vec1=quantile(A_tot(:),Vectau);
+Vec2=quantile(AGE_tot(:),Vectau);
+
+Matxi_tot= Matdraw(:,T+1);
+for tt=2:T
+    Matxi_tot=[Matxi_tot; Matdraw(:,T+1)];
+end
+sample=find(D);
+Mateta_tot = Matdraw(:,1:T);
+Mateta_tot =Mateta_tot(sample);
+Mateps_tot = Y_tot - Mateta_tot;
+%Mateps_tot=Mateps_true(sample);
+Matxi_tot=Matxi_tot(sample);
+Mat_insurance=zeros(Ntau,Ntau);
+
+for jtau1=1:Ntau
+    for jtau2=1:Ntau
+        
+        XX=[];
+        for kk1=0:M1
+            for kk2=0:M2
+                for kk3=0:M3
+                    for kk4=0:M4
+                        for kk5=0:M5
+                            for kk6=0:M6
+                                if kk2<1
+                                XX = [XX zeros(size(Y_tot))];
+                                else
+                                XX=[XX hermite(kk1,(Vec1(jtau1)-meanA)/stdA)...
+                                    .*kk2.*hermite(kk2-1,(Matdraw_tot-meanY)/stdY)./stdY...
+                                    .*hermite(kk3,(Y_tot-Matdraw_tot-meanY)/stdY)...
+                                    .*hermite(kk4,(Vec2(jtau2)-meanAGE)/stdAGE)...
+                                    .*hermite(kk5,(Matxi_tot-meanC)/stdC)...
+                                    .*hermite(kk6,EDUC_tot)];
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        
+        Mat_insurance(jtau1,jtau2)=mean(mean(XX*Resqinit_cons_educ));
+    end
+end
+
+% figure 26d
+figs(4)=figure;
+set(figs(4), 'Position', [10 10 500 400]);
+surf(Vectau,Vectau,Mat_insurance)
+xlabel('Age','FontSize',8)
+ylabel('Assets','FontSize',8)
+zlabel('Consumption response','FontSize',8)
+set(gca,'xlim',[0 1])
+set(gca,'ylim',[0 1])
+set(gca,'zlim',[0 1])
+set(gca,'xtick',(0:0.2:1))
+set(gca,'ytick',(0:0.2:1))
+set(gca,'ztick',(0:0.2:1))
+text(0.8,0.01, 0.85, ['\mu = ' num2str(mean(Mat_insurance(:)),2)])
+text(0.8,0.01, 0.75, ['\sigma = ' num2str(std(Mat_insurance(:)),1)])
+caxis([0 1])
+view([140 15]);
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/abb_c_single_educ_%d.eps',model),'-depsc');
+
+
+
 %% 
-% 6. Motivating regressions with parental variables
+% 8. Motivating regressions with parental variables
 %%%%%%%%%%%%
 
 % Expand the sample
-Nsim=1;
+Nsim=10;
 N=N*Nsim;
 AGE=kron(ones(Nsim,1),AGE);
 D=kron(ones(Nsim,1),D);

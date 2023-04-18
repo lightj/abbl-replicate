@@ -1,7 +1,7 @@
 % ABBL (2021)
 % Code to generate the IRFs for the baseline model
 
-cd '/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Consumption/'
+cd '/home/jdlight/ABBL_PMCMC/JOE_codes/SMC/Consumption/'
 
 clear all
 clc;
@@ -14,13 +14,13 @@ global Vect Vect_dep xx bdw tau T N K1 K2 K3 K4 Ntau Vectau tau ...
     AGE_tot EDUC YB K5 K6 Ybar meanYbar stdYbar
 
 % variable for dynamic saving of files
-model = 1;
+model = 7;
 
 %%
 % 1. Load results and extra data for plotting
 %%%%%%%%%%%%
 
-load ('/home/jdlight/ABBL - PMCMC/JOE_codes/SMC/Cons/Quantile Model/211015_pmcmc_n.mat');
+% load('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Quantile model/Results/REVISION_FINAL.mat')
 
 Resqtrue=Resqfinal;
 Resqtrue_e0=Resqfinal_e0;
@@ -989,7 +989,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -1004,7 +1004,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -1019,7 +1019,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -1034,7 +1034,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -1049,7 +1049,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -1064,7 +1064,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -1079,7 +1079,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -1094,7 +1094,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -1109,7 +1109,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -1124,7 +1124,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -1139,7 +1139,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -1154,7 +1154,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_eta_%d.eps',model),'-depsc');
 
 close all
 
@@ -1819,7 +1819,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -1834,7 +1834,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -1849,7 +1849,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -1864,7 +1864,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -1879,7 +1879,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -1894,7 +1894,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -1909,7 +1909,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -1924,7 +1924,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -1939,7 +1939,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -1954,7 +1954,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -1969,7 +1969,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -1984,7 +1984,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_eta_%d.eps',model),'-depsc');
 
 close all
 
@@ -2653,7 +2653,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2668,7 +2668,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -2683,7 +2683,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -2698,7 +2698,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -2713,7 +2713,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2728,7 +2728,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -2743,7 +2743,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -2758,7 +2758,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -2773,7 +2773,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.25:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2788,7 +2788,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-2 2])
 set(gca,'ytick',(-2:0.5:2))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_a_%d.eps',model),'-depsc');
 
 figs(4)=figure;
 set(figs(4), 'Position', [10 10 600 300]);
@@ -2803,7 +2803,7 @@ ylabel('Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(4),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_y_%d.eps',model),'-depsc');
+print(figs(4),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_y_%d.eps',model),'-depsc');
 
 figs(5)=figure;
 set(figs(5), 'Position', [10 10 600 300]);
@@ -2818,7 +2818,7 @@ ylabel('Permanent Income','FontSize',11)
 set(gca,'ylim',[-0.5 0.5])
 set(gca,'ytick',(-0.5:0.125:0.5))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(5),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_eta_%d.eps',model),'-depsc');
+print(figs(5),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_eta_%d.eps',model),'-depsc');
 
 close all
 
@@ -2844,7 +2844,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.125 0.125])
 set(gca,'ytick',(-0.125:0.0625:0.125))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_vs_median_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_vs_median_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2859,7 +2859,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.125 0.125])
 set(gca,'ytick',(-0.125:0.0625:0.125))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_vs_median_c_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_vs_median_c_%d.eps',model),'-depsc');
 
 % Consumption, median inc
 figs(2)=figure;
@@ -2875,7 +2875,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.125 0.125])
 set(gca,'ytick',(-0.125:0.0625:0.125))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_vs_median_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_vs_median_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2890,7 +2890,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.125 0.125])
 set(gca,'ytick',(-0.125:0.0625:0.125))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_vs_median_c_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_vs_median_c_%d.eps',model),'-depsc');
 
 % Consumption, high inc
 figs(2)=figure;
@@ -2906,7 +2906,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.125 0.125])
 set(gca,'ytick',(-0.125:0.0625:0.125))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_vs_median_c_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_vs_median_c_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2921,7 +2921,7 @@ ylabel('Consumption','FontSize',11)
 set(gca,'ylim',[-0.125 0.125])
 set(gca,'ytick',(-0.125:0.0625:0.125))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_vs_median_c_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_vs_median_c_%d.eps',model),'-depsc');
 
 %% Assets
 % Consumption, low inc
@@ -2938,7 +2938,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_vs_median_a_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_vs_median_a_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2953,7 +2953,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_vs_median_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_vs_median_a_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -2968,7 +2968,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_vs_median_a_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_vs_median_a_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -2983,7 +2983,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_vs_median_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_vs_median_a_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -2998,7 +2998,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_vs_median_a_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_vs_median_a_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -3013,7 +3013,7 @@ ylabel('Assets','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_vs_median_a_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_vs_median_a_%d.eps',model),'-depsc');
 
 %% Eta
 figs(2)=figure;
@@ -3029,7 +3029,7 @@ ylabel('\eta','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_high_vs_median_eta_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_high_vs_median_eta_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -3044,7 +3044,7 @@ ylabel('\eta','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf1_low_vs_median_eta_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf1_low_vs_median_eta_%d.eps',model),'-depsc');
 
 figs(2)=figure;
 set(figs(2), 'Position', [10 10 600 300]);
@@ -3059,7 +3059,7 @@ ylabel('\eta','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_high_vs_median_eta_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_high_vs_median_eta_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -3074,7 +3074,7 @@ ylabel('\eta','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf2_low_vs_median_eta_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf2_low_vs_median_eta_%d.eps',model),'-depsc');
 
 % Consumption, high inc
 figs(2)=figure;
@@ -3090,7 +3090,7 @@ ylabel('\eta','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(2),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_high_vs_median_eta_%d.eps',model),'-depsc');
+print(figs(2),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_high_vs_median_eta_%d.eps',model),'-depsc');
 
 figs(3)=figure;
 set(figs(3), 'Position', [10 10 600 300]);
@@ -3105,4 +3105,4 @@ ylabel('\eta','FontSize',11)
 set(gca,'ylim',[-0.25 0.25])
 set(gca,'ytick',(-0.25:0.125:0.25))
 legend('\tau_{10}','\tau_{25}','\tau_{50}','\tau_{75}','\tau_{90}','Location','northeastoutside')
-print(figs(3),sprintf('/home/jdlight/ABBL - PMCMC/JOE_codes/Results/figs/irf3_low_vs_median_eta_%d.eps',model),'-depsc');
+print(figs(3),sprintf('/home/jdlight/ABBL_PMCMC/JOE_codes/Replication/Cons/Updated_figs/irf3_low_vs_median_eta_%d.eps',model),'-depsc');
